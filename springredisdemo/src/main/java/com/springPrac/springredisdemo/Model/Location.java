@@ -17,7 +17,6 @@ public class Location {
     @NotNull
     @OneToMany(mappedBy = "location")
     private List<Adress> addr;
-    @OneToOne
-    @JoinColumn(name="Applicant_Id")
+    @OneToOne(mappedBy = "address")
     private Applicant applicant;
 }

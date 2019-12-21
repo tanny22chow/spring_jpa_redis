@@ -9,13 +9,13 @@ import java.io.Serializable;
 
 @Entity
 @Data
-@Table(name = "Address", uniqueConstraints = {
-        @UniqueConstraint(columnNames = "address_cd"),@UniqueConstraint(columnNames = "identification_num")})
+@Table(name = "Applicant", uniqueConstraints = {
+        @UniqueConstraint(columnNames = "ID"),@UniqueConstraint(columnNames = "identification_num")})
 public class Applicant implements Serializable {
 
-    @Column(name="ID")
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name="ID")
     private Long applicant_id;
     @Column(name="identification_num")
     @NotNull
@@ -26,7 +26,10 @@ public class Applicant implements Serializable {
     @Min(value = 18)
     private  int age;
     @NotNull
-    @OneToOne(mappedBy = "applicant",cascade = {CascadeType.ALL})
+    @OneToOne(cascade = {CascadeType.ALL})
+    @JoinColumn(name="location_cd")
     private Location address;
+    @OneToOne(mappedBy = "applicant_id")
+    private ApplicationDetail applicationDetail;
 
 }
