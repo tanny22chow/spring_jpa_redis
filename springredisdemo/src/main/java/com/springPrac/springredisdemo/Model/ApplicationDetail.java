@@ -23,5 +23,9 @@ public class ApplicationDetail implements Serializable {
     private Date date_of_submission;
     @ColumnDefault("15")
     private int SLA;
-
+    private String status;
+    private String prcess_fee_stat;
+    @OneToOne(cascade =CascadeType.ALL)
+    @JoinColumn(name="application_fee_id")
+    private  ApplicationFee applicationFee;
 }
