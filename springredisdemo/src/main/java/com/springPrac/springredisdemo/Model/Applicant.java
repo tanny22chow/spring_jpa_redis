@@ -1,6 +1,6 @@
 package com.springPrac.springredisdemo.Model;
 
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
@@ -9,6 +9,10 @@ import java.io.Serializable;
 
 @Entity
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
 @Table(name = "Applicant", uniqueConstraints = {
         @UniqueConstraint(columnNames = "ID"),@UniqueConstraint(columnNames = "identification_num")})
 public class Applicant implements Serializable {
@@ -27,9 +31,9 @@ public class Applicant implements Serializable {
     private  int age;
     @NotNull
     @OneToOne(cascade = {CascadeType.ALL})
-    @JoinColumn(name="location_cd")
     private Location address;
-    @OneToOne(mappedBy = "applicant_id")
+    @OneToOne(mappedBy = "applicant")
+    @JoinColumn(name="application_cd")
     private ApplicationDetail applicationDetail;
 
 }

@@ -1,12 +1,16 @@
 package com.springPrac.springredisdemo.Model;
 
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
 @Table(name = "Address", uniqueConstraints = {
         @UniqueConstraint(columnNames = "address_cd")})
 public class Adress {
@@ -20,9 +24,8 @@ public class Adress {
     private int zip_cd;
     @NotNull
     private String type;
-    @NotNull
-    @ManyToOne
-    @JoinColumn(name="Location_cd")
+    @ManyToOne(cascade=CascadeType.ALL)
+    @JoinColumn(name="loc_cd")
     private Location location;
 
 }
