@@ -28,9 +28,8 @@ public class ApplicationDetailsevice {
     	loc.setAddressList(adl);
     	applicationDetail.getApplicant().setAddress(loc);
         applicationDetailRepository.save(applicationDetail);
-//    	List<Adress> adr1=applicationDetail.getApplicant().getAddress().getAddress();
-//    	adr1.forEach(adr->{
-//    		addressrepo.save(adr);
-//    	});
     }
+	public ApplicationDetail getApplicationByApplicantId(Long applicantId) {
+		return applicationDetailRepository.getApplicationByApplicantId(applicantId);
+	}
 }

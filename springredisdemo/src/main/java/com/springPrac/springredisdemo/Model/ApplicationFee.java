@@ -3,6 +3,8 @@ import lombok.*;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Data
 @NoArgsConstructor
@@ -15,5 +17,6 @@ public class ApplicationFee {
     private Long fee_process_cd;
     private Long transaction_id;
     @OneToOne(mappedBy = "applicationFee")
+    @JsonBackReference
     private ApplicationDetail applicationDetail;
 }

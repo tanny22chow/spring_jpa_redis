@@ -5,6 +5,8 @@ import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -24,6 +26,7 @@ public class ApplicationDetail implements Serializable {
 	@Column(name = "application_id")
 	private Long application_id;
 	@OneToOne(cascade = CascadeType.ALL)
+	@JsonManagedReference
 	private Applicant applicant;
 	@CreationTimestamp
 	private LocalDate date_of_submission;
@@ -33,5 +36,6 @@ public class ApplicationDetail implements Serializable {
 	private String prcess_fee_stat;
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "application_fee_cd")
+	@JsonManagedReference
 	private ApplicationFee applicationFee;
 }

@@ -5,6 +5,10 @@ import lombok.*;
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import java.io.Serializable;
 
 @Entity
@@ -31,9 +35,11 @@ public class Applicant implements Serializable {
 	private int age;
 	@NotNull
 	@OneToOne(cascade = { CascadeType.ALL })
+	@JsonManagedReference
 	private Location address;
 	@OneToOne(mappedBy = "applicant")
 	@JoinColumn(name = "application_cd")
+	@JsonBackReference
 	private ApplicationDetail applicationDetail;
 
 }

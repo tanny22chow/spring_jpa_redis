@@ -7,6 +7,10 @@ import java.util.ArrayList;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Data
 @NoArgsConstructor
@@ -28,6 +32,7 @@ public class Adress {
     private String type;
     @ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name="loc_cd")
+    @JsonBackReference
     private Location location;
  
 
