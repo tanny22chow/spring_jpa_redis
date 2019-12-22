@@ -15,13 +15,15 @@ import java.util.List;
 @Setter
 @Table(name="Location",uniqueConstraints = {@UniqueConstraint(columnNames = "loc_cd")})
 public class Location {
-    @Id
+ 
+	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="loc_cd")
     private int loc_cd;
     @OneToMany(cascade=CascadeType.ALL,mappedBy = "location")
-    private List<Adress> address;
+    private List<Adress> addressList;
     @OneToOne(mappedBy = "address")
     @JoinColumn(name="applicant_cd")
     private Applicant applicant;
+ 
 }

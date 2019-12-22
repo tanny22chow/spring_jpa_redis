@@ -17,21 +17,21 @@ import java.util.Date;
 @AllArgsConstructor
 @Getter
 @Setter
-@Table(name="ApplicationDetail",uniqueConstraints = {@UniqueConstraint(columnNames = {"application_id"})})
+@Table(name = "ApplicationDetail", uniqueConstraints = { @UniqueConstraint(columnNames = { "application_id" }) })
 public class ApplicationDetail implements Serializable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="application_id")
-    private Long application_id;
-    @OneToOne(cascade = CascadeType.ALL)
-    private Applicant applicant;
-    @CreationTimestamp
-    private LocalDate date_of_submission;
-    @ColumnDefault("15")
-    private int SLA;
-    private String status;
-    private String prcess_fee_stat;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="application_fee_cd")
-    private  ApplicationFee applicationFee;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "application_id")
+	private Long application_id;
+	@OneToOne(cascade = CascadeType.ALL)
+	private Applicant applicant;
+	@CreationTimestamp
+	private LocalDate date_of_submission;
+	@ColumnDefault("15")
+	private int SLA;
+	private String status;
+	private String prcess_fee_stat;
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "application_fee_cd")
+	private ApplicationFee applicationFee;
 }
