@@ -1,5 +1,6 @@
 package com.springPrac.springredisdemo.Controller;
 
+import com.springPrac.springredisdemo.AppException.ApplicationDetailsNotFoundException;
 import com.springPrac.springredisdemo.Model.ApplicationDetail;
 import com.springPrac.springredisdemo.Service.ApplicationDetailsevice;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,19 +29,15 @@ public class ApplicationDetailController {
 
 	}
 
-	@Cacheable(value="application",key="#result.application_id")
+	//@Cacheable(value="application",key="#applicantId")
 	@GetMapping(path = "/getapplication/{applicantId}")
-	public ResponseEntity<ApplicationDetail> getApplicationdetailByApplicantId(@PathVariable Long applicantId) {
-		try {
-			if (applicationDetailservice.getApplicationByApplicantId(applicantId) == null) {
-				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-			}
-			return new ResponseEntity<>(applicationDetailservice.getApplicationByApplicantId(applicantId),
-					HttpStatus.OK);
-		} catch (Exception e) {
-			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+	@ResponseStatus(value = HttpStatus.OK)
+	@ResponseBody
+	public ApplicationDetail getApplicationdetailByApplicantId(@PathVariable Long applicantId) throws Exception {
+		if (applicationDetailservice.getApplicationByApplicantId(applicantId) == null) {
+			throw new ApplicationDetailsNotFoundException("Application details not found");
 		}
-
+		return applicationDetailservice.getApplicationByApplicantId(applicantId);
 	}
 
 }
