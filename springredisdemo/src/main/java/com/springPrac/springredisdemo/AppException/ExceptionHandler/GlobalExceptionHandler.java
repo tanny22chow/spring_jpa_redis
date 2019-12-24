@@ -14,7 +14,6 @@ import com.springPrac.springredisdemo.AppException.ApplicationDetailsNotFoundExc
 import com.springPrac.springredisdemo.AppException.GenericExceptionModel.ExceptionModel;
 
 @ControllerAdvice
-@RestController
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
 	@ExceptionHandler(ApplicationDetailsNotFoundException.class)

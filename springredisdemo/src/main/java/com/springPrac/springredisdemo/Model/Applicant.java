@@ -17,8 +17,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @Getter
 @Setter
-@Table(name = "Applicant", uniqueConstraints = { @UniqueConstraint(columnNames = "ID"),
-		@UniqueConstraint(columnNames = "identification_num") })
+@Table(name = "Applicant")
 public class Applicant implements Serializable {
 
 	@Id
@@ -34,10 +33,10 @@ public class Applicant implements Serializable {
 	@Min(value = 18)
 	private int age;
 	@NotNull
-	@OneToOne(cascade = { CascadeType.ALL })
+	@OneToOne(cascade = { CascadeType.ALL},orphanRemoval=true)
 	@JsonManagedReference
 	private Location address;
-	@OneToOne(mappedBy = "applicant")
+	@OneToOne(mappedBy = "applicant",cascade= {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REFRESH })
 	@JoinColumn(name = "application_cd")
 	@JsonBackReference
 	private ApplicationDetail applicationDetail;

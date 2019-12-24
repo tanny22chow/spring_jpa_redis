@@ -2,6 +2,7 @@ package com.springPrac.springredisdemo.Model;
 
 import lombok.*;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import javax.persistence.*;
@@ -19,7 +20,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 @Setter
 @Table(name = "Address", uniqueConstraints = {
         @UniqueConstraint(columnNames = "address_cd")})
-public class Adress {
+public class Adress implements Serializable {
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="address_cd")
@@ -30,7 +31,7 @@ public class Adress {
     private int zip_cd;
     @NotNull
     private String type;
-    @ManyToOne(cascade=CascadeType.ALL)
+    @ManyToOne(cascade= {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REFRESH })
     @JoinColumn(name="loc_cd")
     @JsonBackReference
     private Location location;

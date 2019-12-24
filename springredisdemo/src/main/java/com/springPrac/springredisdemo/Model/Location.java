@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,14 +19,14 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Setter
-@Table(name="Location",uniqueConstraints = {@UniqueConstraint(columnNames = "loc_cd")})
-public class Location {
+@Table(name="Location")
+public class Location implements Serializable {
  
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="loc_cd")
     private int loc_cd;
-    @OneToMany(cascade=CascadeType.ALL,mappedBy = "location")
+    @OneToMany(cascade=CascadeType.ALL,mappedBy = "location",orphanRemoval=true)
     @JsonManagedReference
     private List<Adress> addressList;
     @OneToOne(mappedBy = "address")

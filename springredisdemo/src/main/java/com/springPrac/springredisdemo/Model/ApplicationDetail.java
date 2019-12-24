@@ -19,13 +19,13 @@ import java.util.Date;
 @AllArgsConstructor
 @Getter
 @Setter
-@Table(name = "ApplicationDetail", uniqueConstraints = { @UniqueConstraint(columnNames = { "application_id" }) })
+@Table(name = "ApplicationDetail")
 public class ApplicationDetail implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "application_id")
 	private Long application_id;
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL,orphanRemoval=true)
 	@JsonManagedReference
 	private Applicant applicant;
 	@CreationTimestamp
@@ -34,7 +34,7 @@ public class ApplicationDetail implements Serializable {
 	private int SLA;
 	private String status;
 	private String prcess_fee_stat;
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL,orphanRemoval=true)
 	@JoinColumn(name = "application_fee_cd")
 	@JsonManagedReference
 	private ApplicationFee applicationFee;

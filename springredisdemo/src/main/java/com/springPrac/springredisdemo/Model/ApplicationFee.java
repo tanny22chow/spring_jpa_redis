@@ -1,6 +1,8 @@
 package com.springPrac.springredisdemo.Model;
 import lombok.*;
 
+import java.io.Serializable;
+
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -11,7 +13,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 @AllArgsConstructor
 @Getter
 @Setter
-public class ApplicationFee {
+public class ApplicationFee implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long fee_process_cd;
