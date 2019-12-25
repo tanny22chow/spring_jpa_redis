@@ -3,6 +3,9 @@ package com.springPrac.springredisdemo.Controller;
 import com.springPrac.springredisdemo.AppException.GenericApplicationDetailsException;
 import com.springPrac.springredisdemo.Model.ApplicationDetail;
 import com.springPrac.springredisdemo.Service.ApplicationDetailsevice;
+
+import io.swagger.annotations.ApiModel;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
@@ -13,6 +16,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 
+@ApiModel(description="Application related operations with clean up batch job")
 @RestController("ApplicationDetail")
 @RequestMapping("/applicationdetail")
 public class ApplicationDetailController {
@@ -85,6 +89,11 @@ public class ApplicationDetailController {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 
+	}
+	@GetMapping("/batch/purge")
+	public ResponseEntity<Object> triggerApplicationPurgeBatch(){
+		applicationDetailservice.applicationDetailPurgeBatch();
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
 }

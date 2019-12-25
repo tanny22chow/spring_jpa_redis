@@ -36,7 +36,7 @@ public class Applicant implements Serializable {
 	@OneToOne(cascade = { CascadeType.ALL},orphanRemoval=true)
 	@JsonManagedReference
 	private Location address;
-	@OneToOne(mappedBy = "applicant",cascade= {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REFRESH })
+	@OneToOne(mappedBy = "applicant")
 	@JoinColumn(name = "application_cd")
 	@JsonBackReference
 	private ApplicationDetail applicationDetail;

@@ -9,10 +9,13 @@ import com.springPrac.springredisdemo.Repository.ApplicationDetailRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.scheduling.support.CronTrigger;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -46,6 +49,10 @@ public class ApplicationDetailsevice {
 	public void deleteApplicationByApplicantId(Long applicantId) {
 		Long id=applicationDetailRepository.getApplicationByApplicantId(applicantId).getApplication_id();
 		applicationDetailRepository.deleteById(id);
+	}
+	@Scheduled(cron="0 */60 * * * MON-FRI")
+	public void applicationDetailPurgeBatch() {
+		applicationDetailRepository.deleteApplicationDetailsByApplicationStatus("completed");
 	}
 
 }
