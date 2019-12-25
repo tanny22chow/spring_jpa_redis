@@ -35,7 +35,6 @@ public class ApplicationDetailsevice {
 	}
 
 	public ApplicationDetail getApplicationByApplicantId(Long applicantId) {
-		System.out.println("database fetching");
 		return applicationDetailRepository.getApplicationByApplicantId(applicantId);
 	}
 
@@ -43,6 +42,10 @@ public class ApplicationDetailsevice {
 		ApplicationDetail appdetail=applicationDetailRepository.getApplicationByApplicantId(applicantId);
 		applicationDetail.setApplication_id(appdetail.getApplication_id());
 		applicationDetailRepository.save(applicationDetail);
+	}
+	public void deleteApplicationByApplicantId(Long applicantId) {
+		Long id=applicationDetailRepository.getApplicationByApplicantId(applicantId).getApplication_id();
+		applicationDetailRepository.deleteById(id);
 	}
 
 }

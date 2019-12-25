@@ -3,8 +3,6 @@ package com.springPrac.springredisdemo.Controller;
 import com.springPrac.springredisdemo.AppException.GenericApplicationDetailsException;
 import com.springPrac.springredisdemo.Model.ApplicationDetail;
 import com.springPrac.springredisdemo.Service.ApplicationDetailsevice;
-import com.springPrac.springredisdemo.Service.Applicationservice;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
@@ -21,9 +19,6 @@ public class ApplicationDetailController {
 
 	@Autowired
 	ApplicationDetailsevice applicationDetailservice;
-
-	@Autowired
-	Applicationservice applicationservice;
 
 	@PostMapping(path = "/createapplication", consumes = "application/json", produces = "application/json")
 	@ResponseStatus(HttpStatus.CREATED)
@@ -47,8 +42,7 @@ public class ApplicationDetailController {
 			throws Exception {
 		try {
 			if (applicationDetailservice.getApplicationByApplicantId(applicantId) == null) {
-				return new ResponseEntity<>(applicationDetailservice.getApplicationByApplicantId(applicantId),
-						HttpStatus.NOT_FOUND);
+				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 			}
 			return new ResponseEntity<>(applicationDetailservice.getApplicationByApplicantId(applicantId),
 					HttpStatus.OK);
@@ -65,10 +59,9 @@ public class ApplicationDetailController {
 			throws Exception {
 		try {
 			if (applicationDetailservice.getApplicationByApplicantId(applicantId) == null) {
-				return new ResponseEntity<>(applicationDetailservice.getApplicationByApplicantId(applicantId),
-						HttpStatus.NOT_FOUND);
+				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 			}
-			applicationservice.deleteApplicationByApplicantId(applicantId);
+			applicationDetailservice.deleteApplicationByApplicantId(applicantId);
 			return new ResponseEntity<ApplicationDetail>(HttpStatus.NO_CONTENT);
 
 		} catch (Exception e) {
@@ -84,8 +77,7 @@ public class ApplicationDetailController {
 			@Valid @RequestBody ApplicationDetail applicationDetail, @PathVariable Long applicantId) throws Exception {
 		try {
 			if (applicationDetailservice.getApplicationByApplicantId(applicantId) == null) {
-				return new ResponseEntity<>(applicationDetailservice.getApplicationByApplicantId(applicantId),
-						HttpStatus.NOT_FOUND);
+				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 			}
 			applicationDetailservice.updateApplication(applicationDetail, applicantId);
 			return new ResponseEntity<ApplicationDetail>(HttpStatus.CREATED);

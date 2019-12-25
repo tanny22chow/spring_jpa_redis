@@ -7,7 +7,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ApplicationDetailRepository extends JpaRepository<ApplicationDetail,String> {
+public interface ApplicationDetailRepository extends JpaRepository<ApplicationDetail,Long> {
 
 	@Query(value="select * from application_detail a where a.applicant_id=:applicantId",nativeQuery=true)
 	ApplicationDetail getApplicationByApplicantId(@Param("applicantId")Long applicantId);

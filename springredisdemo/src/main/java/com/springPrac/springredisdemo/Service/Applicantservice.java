@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import com.springPrac.springredisdemo.Repository.ApplicantRepository;
 
 @Service
-public class Applicationservice {
+public class Applicantservice {
 	
 	@Autowired
 	ApplicantRepository applicantRepository;
