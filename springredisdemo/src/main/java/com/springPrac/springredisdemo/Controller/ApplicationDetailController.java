@@ -1,6 +1,6 @@
 package com.springPrac.springredisdemo.Controller;
 
-import com.springPrac.springredisdemo.AppException.ApplicationDetailsNotFoundException;
+import com.springPrac.springredisdemo.AppException.GenericApplicationDetailsException;
 import com.springPrac.springredisdemo.Model.ApplicationDetail;
 import com.springPrac.springredisdemo.Service.ApplicationDetailsevice;
 import com.springPrac.springredisdemo.Service.Applicationservice;
@@ -53,7 +53,7 @@ public class ApplicationDetailController {
 			return new ResponseEntity<>(applicationDetailservice.getApplicationByApplicantId(applicantId),
 					HttpStatus.OK);
 		} catch (Exception e) {
-			throw new ApplicationDetailsNotFoundException("Application details not found");
+			throw new GenericApplicationDetailsException();
 		}
 
 	}
@@ -72,7 +72,7 @@ public class ApplicationDetailController {
 			return new ResponseEntity<ApplicationDetail>(HttpStatus.NO_CONTENT);
 
 		} catch (Exception e) {
-			throw new ApplicationDetailsNotFoundException("Application details not found");
+			throw new GenericApplicationDetailsException();
 		}
 
 	}
@@ -90,7 +90,7 @@ public class ApplicationDetailController {
 			applicationDetailservice.updateApplication(applicationDetail, applicantId);
 			return new ResponseEntity<ApplicationDetail>(HttpStatus.CREATED);
 		} catch (Exception e) {
-			throw new ApplicationDetailsNotFoundException("Application details not found");
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 
 	}
