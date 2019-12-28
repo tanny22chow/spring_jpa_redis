@@ -4,19 +4,19 @@ import com.springPrac.springredisdemo.AppException.GenericApplicationDetailsExce
 import com.springPrac.springredisdemo.Model.ApplicationDetail;
 import com.springPrac.springredisdemo.Service.ApplicationDetailsevice;
 
-import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiOperation;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.util.List;
+import java.util.Optional;
+
 import javax.validation.Valid;
 
-@ApiModel(description="Application related operations with clean up batch job")
 @RestController("ApplicationDetail")
 @RequestMapping("/applicationdetail")
 public class ApplicationDetailController {
@@ -24,9 +24,10 @@ public class ApplicationDetailController {
 	@Autowired
 	ApplicationDetailsevice applicationDetailservice;
 
+	@ApiOperation(value = "creates an aplication based on applicant", consumes = "application/json")
 	@PostMapping(path = "/createapplication", consumes = "application/json", produces = "application/json")
 	@ResponseStatus(HttpStatus.CREATED)
-	public ResponseEntity createApplication(@Valid @RequestBody ApplicationDetail applicationDetail) {
+	public ResponseEntity<Object> createApplication(@Valid @RequestBody ApplicationDetail applicationDetail) {
 		try {
 			applicationDetailservice.createNewApplication(applicationDetail);
 			return ResponseEntity.status(HttpStatus.CREATED)
@@ -40,7 +41,8 @@ public class ApplicationDetailController {
 	}
 
 	// @Cacheable(value="application",key="#applicantId")
-	@GetMapping(path = "/getapplication/{applicantId}",produces="application/json")
+	@GetMapping(path = "/getapplication/{applicantId}", produces = "application/json")
+	@ApiOperation(value = "retrives aplication based on applicant", produces = "application/json", response = ApplicationDetail.class)
 	@ResponseBody
 	public ResponseEntity<ApplicationDetail> getApplicationdetailByApplicantId(@PathVariable Long applicantId)
 			throws Exception {
@@ -58,6 +60,7 @@ public class ApplicationDetailController {
 
 	@DeleteMapping(path = "/deleteapplication/{applicantId}")
 	@ResponseStatus(value = HttpStatus.NO_CONTENT)
+	@ApiOperation(value = "delete aplication based on applicant")
 	@ResponseBody
 	public ResponseEntity<ApplicationDetail> deleteApplicationdetailByApplicantId(@PathVariable Long applicantId)
 			throws Exception {
@@ -74,8 +77,9 @@ public class ApplicationDetailController {
 
 	}
 
-	@PutMapping(path = "/updateapplication/{applicantId}",consumes="application/json")
+	@PutMapping(path = "/updateapplication/{applicantId}", consumes = "application/json")
 	@ResponseStatus(value = HttpStatus.CREATED)
+	@ApiOperation(value = "updates an aplication based on applicant", consumes = "application/json")
 	@ResponseBody
 	public ResponseEntity<ApplicationDetail> updateApplicationdetailByApplicantId(
 			@Valid @RequestBody ApplicationDetail applicationDetail, @PathVariable Long applicantId) throws Exception {
@@ -90,10 +94,25 @@ public class ApplicationDetailController {
 		}
 
 	}
-	@GetMapping("/batch/purge")
-	public ResponseEntity<Object> triggerApplicationPurgeBatch(){
+
+	@GetMapping(path = "/batch/purge")
+	@ApiOperation(value = "cleans up redundant data in completed status")
+	public ResponseEntity<Object> triggerApplicationPurgeBatch() {
 		applicationDetailservice.applicationDetailPurgeBatch();
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
-
+	@GetMapping(path = "/getapplication", produces = "application/json")
+	@ApiOperation(value = "retrives aplication based on status", produces = "application/json", response = ApplicationDetail.class)
+	@ResponseBody
+	public ResponseEntity<List<ApplicationDetail>> getApplicationDetailByStatus(@RequestParam String status) throws Exception{
+		try {
+			if(applicationDetailservice.getApplicationByStatus(status).isEmpty()) {
+				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+			}
+			 return new ResponseEntity<>(applicationDetailservice.getApplicationByStatus(status),HttpStatus.OK);
+		} catch (Exception e) {
+			throw new GenericApplicationDetailsException();
+		}
+		
+	}
 }

@@ -7,12 +7,15 @@ import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
+import io.swagger.annotations.ApiModel;
+
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
+@ApiModel(description="Processing fee details")
 public class ApplicationFee implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

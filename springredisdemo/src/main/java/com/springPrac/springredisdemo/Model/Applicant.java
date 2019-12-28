@@ -9,6 +9,8 @@ import javax.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+import io.swagger.annotations.ApiModel;
+
 import java.io.Serializable;
 
 @Entity
@@ -18,6 +20,7 @@ import java.io.Serializable;
 @Getter
 @Setter
 @Table(name = "Applicant")
+@ApiModel(description="Applicant information")
 public class Applicant implements Serializable {
 
 	@Id

@@ -7,6 +7,8 @@ import org.hibernate.annotations.GenericGenerator;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+import io.swagger.annotations.ApiModel;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -20,6 +22,7 @@ import java.util.Date;
 @Getter
 @Setter
 @Table(name = "ApplicationDetail")
+@ApiModel(description="Application information")
 public class ApplicationDetail implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

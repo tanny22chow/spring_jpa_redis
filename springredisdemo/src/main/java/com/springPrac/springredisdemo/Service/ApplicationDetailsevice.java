@@ -3,6 +3,7 @@ package com.springPrac.springredisdemo.Service;
 import com.springPrac.springredisdemo.Model.Adress;
 import com.springPrac.springredisdemo.Model.ApplicationDetail;
 import com.springPrac.springredisdemo.Model.Location;
+import com.springPrac.springredisdemo.Model.QApplicationDetail;
 import com.springPrac.springredisdemo.Repository.AddressRepository;
 import com.springPrac.springredisdemo.Repository.ApplicantRepository;
 import com.springPrac.springredisdemo.Repository.ApplicationDetailRepository;
@@ -50,9 +51,14 @@ public class ApplicationDetailsevice {
 		Long id=applicationDetailRepository.getApplicationByApplicantId(applicantId).getApplication_id();
 		applicationDetailRepository.deleteById(id);
 	}
-	@Scheduled(cron="0 */60 * * * MON-FRI")
+	//@Scheduled(cron="0 */60 * * * MON-FRI")
 	public void applicationDetailPurgeBatch() {
 		applicationDetailRepository.deleteApplicationDetailsByApplicationStatus("completed");
+	}
+
+	public List<ApplicationDetail> getApplicationByStatus(String status) {
+			QApplicationDetail applicationDatailquery=QApplicationDetail.applicationDetail;
+		return (List<ApplicationDetail>) applicationDetailRepository.findAll(applicationDatailquery.status.eq(status));
 	}
 
 }

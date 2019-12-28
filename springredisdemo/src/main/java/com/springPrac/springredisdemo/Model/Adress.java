@@ -12,6 +12,10 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import io.swagger.annotations.ApiParam;
+
 @Entity
 @Data
 @NoArgsConstructor
@@ -20,6 +24,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 @Setter
 @Table(name = "Address", uniqueConstraints = {
         @UniqueConstraint(columnNames = "address_cd")})
+@ApiModel(description="address details")
 public class Adress implements Serializable {
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
