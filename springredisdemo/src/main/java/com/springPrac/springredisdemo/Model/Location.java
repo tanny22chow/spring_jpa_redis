@@ -29,7 +29,7 @@ public class Location implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="loc_cd")
     private int loc_cd;
-    @OneToMany(cascade=CascadeType.ALL,mappedBy = "location",orphanRemoval=true)
+    @OneToMany(cascade=CascadeType.ALL,mappedBy = "location",orphanRemoval=true,fetch=FetchType.EAGER)
     @JsonManagedReference
     private List<Adress> addressList;
     @OneToOne(mappedBy = "address")

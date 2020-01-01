@@ -56,9 +56,9 @@ public class ApplicationDetailsevice {
 		applicationDetailRepository.deleteApplicationDetailsByApplicationStatus("completed");
 	}
 
-	public List<ApplicationDetail> getApplicationByStatus(String status) {
+	public List<ApplicationDetail> getApplicationByStatus(String name) {
 			QApplicationDetail applicationDatailquery=QApplicationDetail.applicationDetail;
-		return (List<ApplicationDetail>) applicationDetailRepository.findAll(applicationDatailquery.status.eq(status));
+		return (List<ApplicationDetail>) applicationDetailRepository.findAll(applicationDatailquery.applicant.name.eq(name));
 	}
 
 }
