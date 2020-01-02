@@ -30,8 +30,8 @@ public class ApplicationDetailsevice {
 		Location loc = applicationDetail.getApplicant().getAddress();
 		List<Adress> adl = new ArrayList<Adress>();
 		loc.getAddressList().forEach(add -> {
-			adl.add(add);
 			add.setLocation(loc);
+			adl.add(add);
 		});
 		loc.setAddressList(adl);
 		applicationDetail.getApplicant().setAddress(loc);

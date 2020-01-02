@@ -24,11 +24,11 @@ import io.swagger.annotations.ApiParam;
 @Setter
 @Table(name = "Address", uniqueConstraints = {
         @UniqueConstraint(columnNames = "address_cd")})
-@ApiModel(description="address details")
 public class Adress implements Serializable {
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="address_cd")
+	@ApiModelProperty(hidden=true)
     private Long address_cd;
     @NotNull
     private  String city;

@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -22,12 +23,12 @@ import java.util.List;
 @Getter
 @Setter
 @Table(name="Location")
-@ApiModel(description="location code of Applicant")
 public class Location implements Serializable {
  
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="loc_cd")
+	@ApiModelProperty(hidden=true)
     private int loc_cd;
     @OneToMany(cascade=CascadeType.ALL,mappedBy = "location",orphanRemoval=true,fetch=FetchType.EAGER)
     @JsonManagedReference
