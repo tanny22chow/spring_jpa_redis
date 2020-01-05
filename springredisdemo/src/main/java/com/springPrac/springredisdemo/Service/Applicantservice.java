@@ -1,12 +1,14 @@
 package com.springPrac.springredisdemo.Service;
 
 import com.springPrac.springredisdemo.AppDTO.ApplicantInfoDTO;
+import com.springPrac.springredisdemo.AppDTO.VerificationServiceResponseDTO;
 import com.springPrac.springredisdemo.Model.Applicant;
 import com.springPrac.springredisdemo.Model.ApplicationDetail;
 import com.springPrac.springredisdemo.Model.QApplicant;
 import com.springPrac.springredisdemo.Model.QApplicationDetail;
 import com.springPrac.springredisdemo.Repository.ApplicationDetailRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.SendResult;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -32,7 +34,7 @@ public class Applicantservice {
 		applicantRepository.deleteById(applicantId);
 	}
 
-	@Scheduled(cron = "0/30 * * * * MON-FRI")
+	@Scheduled(cron = "0/30 * * * * *")
 	public void dispatchapplicationToverificationService() {
 		List<ApplicantInfoDTO> applicants = new ArrayList<ApplicantInfoDTO>();
 		QApplicationDetail qApplicationDetail = QApplicationDetail.applicationDetail;
@@ -71,5 +73,14 @@ public class Applicantservice {
 			});
 
 		});
+	}
+
+	@KafkaListener(containerFactory="applicantserviceContainer",topics="Verify_Acknowlegdement")
+	public void updateStatus(VerificationServiceResponseDTO response) {
+		ApplicationDetail app=applicationDetailRepository.findOne(QApplicationDetail.applicationDetail.
+				applicant.identification_num.eq(response.getIdentification_num())).get();
+		app.setStatus(response.getStatus());
+		applicationDetailRepository.save(app);
+		
 	}
 }
