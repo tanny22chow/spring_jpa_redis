@@ -8,6 +8,7 @@ import javax.persistence.*;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 @Entity
 @Data
@@ -19,6 +20,7 @@ import io.swagger.annotations.ApiModel;
 public class ApplicationFee implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @ApiModelProperty(hidden=true)
     private Long fee_process_cd;
     private Long transaction_id;
     @OneToOne(mappedBy = "applicationFee")

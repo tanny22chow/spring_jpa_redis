@@ -8,12 +8,11 @@ import org.hibernate.annotations.GenericGenerator;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Date;
 
 @Entity
 @Data
@@ -27,16 +26,18 @@ public class ApplicationDetail implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "application_id")
+	@ApiModelProperty(hidden=true)
 	private Long application_id;
-	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
-	@JsonManagedReference
-	private Applicant applicant;
 	@CreationTimestamp
+	@ApiModelProperty(hidden=true)
 	private LocalDate date_of_submission;
 	@ColumnDefault("15")
 	private int SLA;
 	private String status;
 	private String prcess_fee_stat;
+	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+	@JsonManagedReference
+	private Applicant applicant;
 	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "application_fee_cd")
 	@JsonManagedReference
