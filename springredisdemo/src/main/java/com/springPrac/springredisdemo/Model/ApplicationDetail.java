@@ -21,7 +21,6 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @Table(name = "ApplicationDetail")
-@ApiModel(description="Application information")
 public class ApplicationDetail implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

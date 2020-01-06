@@ -23,7 +23,6 @@ import java.util.List;
 @Getter
 @Setter
 @Table(name="Location")
-@ApiModel(description="location code of Applicant")
 public class Location implements Serializable {
  
 	@Id

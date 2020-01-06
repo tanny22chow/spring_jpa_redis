@@ -24,7 +24,6 @@ import io.swagger.annotations.ApiParam;
 @Setter
 @Table(name = "Address", uniqueConstraints = {
         @UniqueConstraint(columnNames = "address_cd")})
-@ApiModel(description="address details")
 public class Adress implements Serializable {
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)

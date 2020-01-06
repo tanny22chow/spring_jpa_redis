@@ -16,7 +16,6 @@ import io.swagger.annotations.ApiModelProperty;
 @AllArgsConstructor
 @Getter
 @Setter
-@ApiModel(description="Processing fee details")
 public class ApplicationFee implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
