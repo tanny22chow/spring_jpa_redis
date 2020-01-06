@@ -29,6 +29,7 @@ public class Adress implements Serializable {
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="address_cd")
+	@ApiModelProperty(hidden=true)
     private Long address_cd;
     @NotNull
     private  String city;
